@@ -1,0 +1,43 @@
+version: "1.0"
+
+services:
+  app:
+    build: .
+    container_name: hse_hw3_ap_url_shortener
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - .:/hse_hw3_ap_url_shortener
+    restart: always
+
+  postgres:
+    image: postgres:15
+    container_name: postgres-db
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+  redis:
+    image: redis:7
+    container_name: redis-cache
+    env_file:
+      - .env
+    ports:
+      - "6379:6379"
+    restart: always
+
+volumes:
+  postgres_data:
