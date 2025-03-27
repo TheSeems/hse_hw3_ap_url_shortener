@@ -9,12 +9,9 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 
 class Config(BaseSettings):
-    db_user: str
-    db_password: str
     db_url: str
 
-    redis_host: str
-    redis_port: int
+    redis_url: str
 
     secret_key: str
     algo: str
