@@ -17,7 +17,7 @@ ENV PATH="${PATH}:${POETRY_VENV}/bin"
 WORKDIR /hse_hw3_ap_url_shortener
 
 # Install dependencies
-COPY poetry.lock pyproject.toml ./
+COPY poetry.lock pyproject.toml README.md ./
 RUN poetry install
 
 # Run your app
