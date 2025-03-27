@@ -59,6 +59,17 @@
     }
     ```
 
+# Deploy
+
+Задеплоено на Render.com, живость зависит исключительно от этого сервиса
+
+![Services Overview](deploy.png)
+
+Примеры:
+- https://hse-hw3-ap-url-shortener.onrender.com/links/QCSntE
+- https://hse-hw3-ap-url-shortener.onrender.com/links/u7RKVx
+- https://hse-hw3-ap-url-shortener.onrender.com/links/is_this_a_rickroll
+
 # Инструкция по запуску
 
 1. Склонировать репозиторий и перейти в его корневую папку
