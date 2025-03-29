@@ -117,3 +117,9 @@
 2. Установить зависимости: `poetry install`
 3. Запустить выполнение тестов с замером покрытия: `poetry run coverage run -m pytest`
 4. Сформировать HTML отчет о покрытии: `poetry run coverage html`
+
+# Отчет о покрытии
+
+Можно посмотреть актуальный на момент сдачи ДЗ 4 ответ о покрытии без запуска кода.
+
+Подробнее в [showcase_coverage_report](showcase_coverage_report/README.md)
