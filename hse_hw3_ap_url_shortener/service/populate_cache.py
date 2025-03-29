@@ -34,12 +34,15 @@ class PopulateCacheService:
     async def populate_cache(self):
         top_links = self._get_top_links()
         logger.info("About to populate cache with links %s", top_links)
+
+        all_keys = [f"link:{link.short_code}" for link in top_links]
+
         async with self.redis.pipeline(transaction=True) as pipe:
-            await pipe.delete("top_links")
+            await pipe.delete(*all_keys)
             for link in top_links:
-                pipe.setex(
+                await pipe.setex(
                     f"link:{link.short_code}",
-                    timedelta(seconds=self.config.cache_ttl_hours),
+                    timedelta(hours=self.config.cache_ttl_hours),
                     link.model_dump_json(),
                 )
             await pipe.execute()
@@ -48,7 +51,7 @@ class PopulateCacheService:
         self.scheduler.add_job(
             self.populate_cache,
             "interval",
-            minutes=self.config.cleanup_interval_minutes,
+            minutes=self.config.populate_cache_interval_minutes,
             next_run_time=datetime.now(),
         )
         self.scheduler.start()

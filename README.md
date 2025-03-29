@@ -6,6 +6,7 @@
 | Удалить ссылку             | DELETE | http://localhost:8000/links/{{short_code}}       | Bearer Token   | Удаляет ссылку.                                             | `{ "original_url": "https://youtube.com" }`                                             |
 | Логин                      | POST   | http://localhost:8000/auth/login                 | Нет            | Авторизует пользователя по email и паролю.                  | `{ "email": "sample@a.nl", "password": "abcde1" }`                                      |
 | Регистрация                | POST   | http://localhost:8000/auth/register              | Нет            | Регистрирует нового пользователя с email, паролем и именем. | `{ "email": "sample@a.nl", "password": "abcde1", "name": "Sample" }`                    |
+| Информация о пользователе  | GET    | http://localhost:8000/auth/whoami                | Bearer token   | Отдает информацию о текущем пользователе.                   | -                                                                                       |
 | Поиск                      | GET    | http://localhost:8000/links/search               | Bearer Token   | Ищет ссылки на original_url.                                | -                                                                                       | 
 | Создать (сократить) ссылку | POST   | http://localhost:8000/links/shorten              | Bearer Token   | Создает ссылку с необязательной датой просрочки.            | `{ "original_url": "https://youtube.com", "expires_at": "2025-03-26T19:15:53.625853" }` |
 | Статистика                 | GET    | http://localhost:8000/links/{{short_code}}/stats | Bearer Token   | Выдает статистику для ссылки.                               | -                                                                                       |
@@ -109,3 +110,10 @@
 - `email` - уникальный адрес почты
 - `hashed_password` - хэш от
   пароля 
+
+# Запуск тестов
+
+1. Склонировать репозиторий, перейти в корневую папку
+2. Установить зависимости: `poetry install`
+3. Запустить выполнение тестов с замером покрытия: `poetry run coverage run -m pytest`
+4. Сформировать HTML отчет о покрытии: `poetry run coverage html`

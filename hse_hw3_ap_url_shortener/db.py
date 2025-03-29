@@ -28,7 +28,9 @@ SessionDep = Annotated[Session, Depends(get_session)]
 
 
 async def get_redis(config: ConfigDep) -> Redis:
-    return Redis(connection_pool=ConnectionPool.from_url(config.redis_url, decode_responses=True))
+    return Redis(
+        connection_pool=ConnectionPool.from_url(config.redis_url, decode_responses=True)
+    )
 
 
 RedisDep = Annotated[Redis, Depends(get_redis)]

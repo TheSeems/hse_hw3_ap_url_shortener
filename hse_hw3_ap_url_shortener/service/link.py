@@ -35,7 +35,7 @@ class LinkService:
         custom_alias: Optional[str] = None,
         expires_at: Optional[datetime] = None,
     ) -> Link:
-        original_url = quote(original_url.unicode_string(), safe="%/:=&?~#+!$,;'@()*[]")
+        original_url = quote(str(original_url), safe="%/:=&?~#+!$,;'@()*[]")
 
         if custom_alias:
             existing_link = await self.get_link_by_short_code(session, custom_alias)
@@ -64,7 +64,6 @@ class LinkService:
     ) -> str:
         while True:
             short_code = _generate_random_string(length)
-            print("Try code", short_code)
             existing = await self.get_link_by_short_code(session, short_code)
             if not existing:
                 return short_code
