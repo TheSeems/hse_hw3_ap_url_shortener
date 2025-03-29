@@ -1,4 +1,3 @@
-import logging
 from contextlib import asynccontextmanager, AsyncExitStack
 
 import uvicorn
@@ -11,8 +10,9 @@ from hse_hw3_ap_url_shortener.endpoints.auth import auth_router
 from hse_hw3_ap_url_shortener.endpoints.link import links_router
 from hse_hw3_ap_url_shortener.service.cleanup import CleanupServiceDep
 from hse_hw3_ap_url_shortener.service.populate_cache import PopulateCacheServiceDep
+from hse_hw3_ap_url_shortener.settings.logging import configure_logging
 
-logging.basicConfig(level=logging.INFO)
+configure_logging()
 
 
 # Borrowed from https://github.com/fastapi/fastapi/discussions/11742

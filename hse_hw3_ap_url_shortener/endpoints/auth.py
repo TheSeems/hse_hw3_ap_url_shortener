@@ -8,8 +8,9 @@ from hse_hw3_ap_url_shortener.model.model import (
     UserCreateIn,
     UserLoginOut,
     UserLoginIn,
+    WhoamiOut,
 )
-from hse_hw3_ap_url_shortener.service.auth import AuthServiceDep
+from hse_hw3_ap_url_shortener.service.auth import AuthServiceDep, CurrentUserDep
 from hse_hw3_ap_url_shortener.service.user import UserServiceDep
 
 auth_router = APIRouter()
@@ -17,7 +18,7 @@ auth_router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token", auto_error=False)
 
 
-@auth_router.post("/auth/register", response_model=UserCreateOut)
+@auth_router.post("/auth/register", response_model=UserCreateOut, status_code=201)
 def register(
     user_in: UserCreateIn,
     user_service: UserServiceDep,
@@ -51,3 +52,11 @@ def login(
         raise HTTPException(status_code=401, detail="Incorrect username or password")
     access_token = auth_service.create_access_token(user)
     return UserLoginOut(token=access_token, token_type="bearer")
+
+
+@auth_router.get("/auth/whoami", response_model=WhoamiOut)
+def whoami(current_user: CurrentUserDep) -> WhoamiOut:
+    return WhoamiOut(
+        name=current_user.name,
+        email=current_user.email,
+    )
